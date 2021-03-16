@@ -1,0 +1,28 @@
+public void prueba(){
+        FirebaseFirestore db = instanceDb();
+        db.collection(Solicitudes).document(510)
+        .get().addOnCompleteListener(new OnCompleteListenerDocumentSnapshot() {
+            @Override
+            public void onComplete(@NonNull TaskDocumentSnapshot task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Log.e(sdad, DocumentSnapshot data  + document.getData());
+                        Log.e(cczxc,document.get(rootObject).toString());
+                        try {
+                            JSONObject inf_json = new JSONObject(document.getData());
+                            JSONObject inf_json2 = new JSONObject(inf_json.getString(rootObject));
+                            Log.e(json,inf_json2.getString(customer));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Log.e(asd,ERROR);
+                        }
+                    } else {
+                        Log.e(TAG, No such document);
+                    }
+                } else {
+                    Log.e(TAG, get failed with , task.getException());
+                }
+            }
+        });
+    }
